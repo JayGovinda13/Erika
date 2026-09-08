@@ -16,7 +16,7 @@ export default function GallerySection({ galeria, onSelectImage }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            onClick={() => onSelectImage(imagemSrc)}
+            onClick={() => onSelectImage(index)}
             className="w-full aspect-square bg-[#f5f5f5] overflow-hidden group relative shadow-sm cursor-pointer"
           >
             <img 
