@@ -26,10 +26,10 @@ import img9535_2 from './assets/imagens/Expo Sawubona/IMG_9535-2.JPG';
 import img9535 from './assets/imagens/Expo Sawubona/IMG_9535.JPG';
 
 // 3. Fotografias
-import mg4401_2 from './assets/imagens/fotografias/_MG_4401-2.JPG';
-import mg4406_2 from './assets/imagens/fotografias/_MG_4406-2.JPG';
-import mg4408 from './assets/imagens/fotografias/_MG_4408.JPG';
-import mg4413_2 from './assets/imagens/fotografias/_MG_4413-2.JPG';
+import mg4401_2 from './assets/imagens/Fotografias/_MG_4401-2.JPG';
+import mg4406_2 from './assets/imagens/Fotografias/_MG_4406-2.JPG';
+import mg4408 from './assets/imagens/Fotografias/_MG_4408.JPG';
+import mg4413_2 from './assets/imagens/Fotografias/_MG_4413-2.JPG';
 
 // 4. Guachê
 import img5298 from './assets/imagens/Guachê/IMG_5298.JPG';
