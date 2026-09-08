@@ -58,7 +58,7 @@ export default function App() {
     },
     {
       id: 'fotografias',
-      titulo: 'Fotografias / Ovoides',
+      titulo: 'Fotografias',
       obras: [mg4401_2, mg4406_2, mg4408, mg4413_2]
     },
     {
