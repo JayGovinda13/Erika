@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Back-end: conteúdo, senha e imagens enviadas pela Erika
+data
+.env

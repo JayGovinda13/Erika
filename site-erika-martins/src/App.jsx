@@ -8,34 +8,7 @@ import GallerySection from './components/GallerySection';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-// 1. Esculturas de Cor
-import img2694 from './assets/imagens/Esculturas de Cor/IMG_2694.JPG';
-import img2695 from './assets/imagens/Esculturas de Cor/IMG_2695.JPG';
-import img2696 from './assets/imagens/Esculturas de Cor/IMG_2696.JPG';
-
-// 2. Expo Sawubona
-import img9494_2 from './assets/imagens/Expo Sawubona/IMG_9494-2.JPG';
-import img9494 from './assets/imagens/Expo Sawubona/IMG_9494.JPG';
-import img9495_2 from './assets/imagens/Expo Sawubona/IMG_9495-2.JPG';
-import img9495 from './assets/imagens/Expo Sawubona/IMG_9495.JPG';
-import img9522_2 from './assets/imagens/Expo Sawubona/IMG_9522-2.JPG';
-import img9524 from './assets/imagens/Expo Sawubona/IMG_9524.JPG';
-import img9531_2 from './assets/imagens/Expo Sawubona/IMG_9531-2.JPG';
-import img9531 from './assets/imagens/Expo Sawubona/IMG_9531.JPG';
-import img9532_2 from './assets/imagens/Expo Sawubona/IMG_9532-2.JPG';
-import img9532 from './assets/imagens/Expo Sawubona/IMG_9532.JPG';
-import img9533 from './assets/imagens/Expo Sawubona/IMG_9533.JPG';
-import img9535_2 from './assets/imagens/Expo Sawubona/IMG_9535-2.JPG';
-import img9535 from './assets/imagens/Expo Sawubona/IMG_9535.JPG';
-
-// 3. Fotografias
-import mg4401_2 from './assets/imagens/Fotografias/_MG_4401-2.JPG';
-import mg4406_2 from './assets/imagens/Fotografias/_MG_4406-2.JPG';
-import mg4408 from './assets/imagens/Fotografias/_MG_4408.JPG';
-import mg4413_2 from './assets/imagens/Fotografias/_MG_4413-2.JPG';
-
-// 4. Guachê
-import img5298 from './assets/imagens/Guachê/IMG_5298.JPG';
+import useConteudo from './hooks/useConteudo';
 
 export default function App() {
   // Controle da galeria Lightbox
@@ -45,47 +18,24 @@ export default function App() {
 
   // Função para abrir o Lightbox recebendo a lista de obras e o índice clicado
   const abrirLightbox = (obras, index) => {
-    const slides = obras.map(obra => ({ src: obra }));
+    const slides = obras.map(obra => ({ src: obra.src, title: obra.titulo || undefined }));
     setGaleriaAtual(slides);
     setIndiceAtual(index);
     setOpen(true);
   };
 
-  const whatsappNumber = "5513991508282"; 
-  const whatsappMessage = encodeURIComponent("Olá, Erika! Gostaria de saber mais sobre as obras das suas galerias.");
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+  const conteudo = useConteudo();
+  if (!conteudo) return <div className="min-h-screen bg-white" />;
 
-  const galerias = [
-    {
-      id: 'esculturas',
-      titulo: 'Esculturas de Cor',
-      obras: [img2694, img2695, img2696]
-    },
-    {
-      id: 'sawubona',
-      titulo: 'Expo Sawubona',
-      obras: [
-        img9494_2, img9494, img9495_2, img9495, 
-        img9522_2, img9524, img9531_2, img9531, 
-        img9532_2, img9532, img9533, img9535_2, img9535
-      ]
-    },
-    {
-      id: 'fotografias',
-      titulo: 'Fotografias',
-      obras: [mg4401_2, mg4406_2, mg4408, mg4413_2]
-    },
-    {
-      id: 'guache',
-      titulo: 'Guachê',
-      obras: [img5298]
-    },
-  ];
+  const { sobre, contato } = conteudo;
+  const galerias = conteudo.galerias.filter((g) => g.obras.length > 0);
+  const whatsappMessage = encodeURIComponent(contato.mensagem || '');
+  const whatsappLink = `https://wa.me/${contato.whatsapp}?text=${whatsappMessage}`;
 
   return (
     <div className="min-h-screen bg-white text-[#333333] font-sans scroll-smooth relative">
       
-      <Header galerias={galerias} />
+      <Header galerias={galerias} tituloSobre={sobre.titulo} />
 
       <section id="quem-sou" className="px-8 md:px-16 py-24 bg-[#f5f5f5] scroll-mt-32">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
@@ -93,9 +43,13 @@ export default function App() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="w-full md:w-1/3 aspect-square bg-[#e0e0e0] flex items-center justify-center text-[#616161] text-xs uppercase tracking-widest"
+            className="w-full md:w-1/3 aspect-square bg-[#e0e0e0] flex items-center justify-center text-[#616161] text-xs uppercase tracking-widest overflow-hidden"
           >
-            Foto de Perfil
+            {sobre.foto ? (
+              <img src={sobre.foto} alt="Erika Martins" className="w-full h-full object-cover" />
+            ) : (
+              'Foto de Perfil'
+            )}
           </motion.div>
           
           <motion.div 
@@ -105,15 +59,15 @@ export default function App() {
             className="w-full md:w-2/3"
           >
             <h2 className="text-xl text-[#616161] uppercase tracking-[0.2em] mb-6 border-b border-[#e0e0e0] pb-2 inline-block">
-              Quem Sou
+              {sobre.titulo}
             </h2>
             <div className="text-gray-600 space-y-4 leading-relaxed font-light text-sm md:text-base">
-              <p>
-                Somos um estúdio de arte, oferecemos trabalhos em fotografia e artes visuais. Atendemos arquitetos e decoradores, lojas de decoração, galerias e simpatizantes da arte.
-              </p>
-              <p className="font-semibold text-[#333333]">
-                Erika Martins, Artista Visual e Fotógrafa
-              </p>
+              {sobre.paragrafos.map((paragrafo, i) => (
+                <p key={i} className="whitespace-pre-line">{paragrafo}</p>
+              ))}
+              {sobre.assinatura && (
+                <p className="font-semibold text-[#333333]">{sobre.assinatura}</p>
+              )}
             </div>
           </motion.div>
         </div>
