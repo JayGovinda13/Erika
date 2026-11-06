@@ -9,9 +9,9 @@ export default function GallerySection({ galeria, onSelectImage }) {
       </h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {galeria.obras.map((imagemSrc, index) => (
+        {galeria.obras.map((obra, index) => (
           <motion.div 
-            key={index}
+            key={obra.id || index}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -20,8 +20,8 @@ export default function GallerySection({ galeria, onSelectImage }) {
             className="w-full aspect-square bg-[#f5f5f5] overflow-hidden group relative shadow-sm cursor-pointer"
           >
             <img 
-              src={imagemSrc} 
-              alt={`${galeria.titulo} - Obra ${index + 1}`} 
+              src={obra.src} 
+              alt={obra.titulo || `${galeria.titulo} - Obra ${index + 1}`} 
               loading="lazy"
               decoding="async"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

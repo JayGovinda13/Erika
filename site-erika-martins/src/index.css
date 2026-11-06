@@ -42,3 +42,18 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #333333; 
 }
+/* Estilos do painel administrativo (/admin) */
+@layer components {
+  .campo {
+    @apply block w-full border border-[#e0e0e0] bg-white px-3 py-2 text-sm text-[#333333] outline-none transition-colors focus:border-[#616161];
+  }
+  .botao {
+    @apply inline-flex items-center justify-center gap-2 bg-[#616161] px-5 py-3 text-xs uppercase tracking-widest text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .botao-sec {
+    @apply inline-flex items-center justify-center gap-2 border border-[#e0e0e0] bg-white px-4 py-2 text-xs uppercase tracking-widest text-[#616161] transition-colors hover:border-[#616161] hover:text-black disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .rotulo {
+    @apply mb-2 block text-xs uppercase tracking-widest text-[#616161];
+  }
+}
